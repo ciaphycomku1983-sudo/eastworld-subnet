@@ -67,5 +67,5 @@ class Observation(bt.Synapse):
     # Miner's action response
     action: list[dict]
 
-    # Reward (not implemented so far)
+    # Reward
     reward: float

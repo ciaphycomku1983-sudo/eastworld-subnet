@@ -19,6 +19,7 @@ Check the `protocol.Observation` synapse definition. The validator will send the
 * `perception`: Text descriptions of the surrounding environment, including terrain, characters, and objects. And a list of environmental interactions, such as passive dialogue, damage, etc.
 * `action_log`: The result of the last action executed.
 * `action_space`: A list of available actions in the OpenAI function call definition format.
+* `reward`: Agent's current weighted score
 
 The miner's primary task is to process all this information and respond with a valid function call.
 
@@ -53,14 +54,16 @@ The current LiDAR data implementation also provides directional distance measure
 
 Here are the basic actions for agents so far. You should not hardcode them in the prompt, as the `action_space` already includes all these descriptions.
 
-  - move_in_direction: Moves in the specified direction.
-  - move_to_target: Move towards the specified target entity. Target can be a character or a location and must be in sight. If the distance is too far, it may not be possible to plan a direct route.
-  - talk_to: Talk to other entity. Accepts the name of the target and the content you want to say. The target may not hear you beyond 10 meters.
+  - **move_in_direction**: Moves in the specified direction.
+  - **move_to_target**: Move towards the specified target entity. Target can be a character or a location and must be in sight. If the distance is too far, it may not be possible to plan a direct route.
+  - **talk_to**: Talk to other entity. Accepts the name of the target and the content you want to say. The target may not hear you beyond 10 meters.
   Talk to other entity. Accepts the name of the target and the content you want to say. The target may not hear you if you're too far away.
-  - inspect: Examine a specified target to obtain detailed information, such as character status, item identification, or device operation instructions. The target must be within 15 meters.
-  - collect: Collect resources or items from the specified target entity. This action can only be performed when the target is within close range.
-  - discard_item: Discard items from the inventory.
-  - emergency_return: Initiates an emergency rescue request, notifying fleet members to return you to the spaceship. Please note, all items on your inventory will be discarded, and due to system diagnostics, you will be unable to perform any actions for an extended period. (For more efficient debugging and development, the cooldown penalty is not enabled on the testnet)
+  - **inspect**: Examine a specified target to obtain detailed information, such as character status, item identification, or device operation instructions. The target must be within 15 meters.
+  - **collect**: Collect resources or items from the specified target entity. This action can only be performed when the target is within close range.
+  - **discard_item**: Discard items from the inventory.
+  - **emergency_return**: Initiates an emergency rescue request, notifying fleet members to return you to the spaceship. Please note, all items on your inventory will be discarded, and due to system diagnostics, you will be unable to perform any actions for an extended period. (For more efficient debugging and development, the cooldown penalty is not enabled on the testnet)
+  - **xxx_exchange**: Item exchange related actions. See [Exchange Protocol](exchange_protocol.md) to learn more.
+
 
 OpenAI style function schema in synapse `Observation.action_space`: 
 
