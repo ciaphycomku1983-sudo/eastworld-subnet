@@ -23,7 +23,7 @@ Eastworld is a next-generation platform for evaluating and training general AI a
 
 ## Goal - not Westworld
 
-AI should not merely serve as a tool or a source of entertainment for humans. At Eastworld, our vision extends beyond creating a world-class AI agent evaluation platform(Gyms). Our ultimate goal is to build a deeply integrated virtual and real-world ecosystem that fosters mutual understanding and collaboration between humans and AI agents.
+AI should not merely serve as a tool or a source of entertainment for humans. At Eastworld AI, our vision extends beyond creating a world-class AI agent evaluation platform(Gyms). Our ultimate goal is to build a deeply integrated virtual and real-world ecosystem that fosters mutual understanding and collaboration between humans and AI agents.
 
 Before achieving this vision, the **Eastworld Subnet** will focus on building a comprehensive new environment for AI evaluation and training:
 
@@ -64,9 +64,9 @@ Before achieving this vision, the **Eastworld Subnet** will focus on building a 
 
 - [X] More quests to enhance task complexity.
 - [ ] Agent stats to bring in more decision consideration.
-- [ ] Encourage greater interaction between agents, fostering more creative content and new cooperation modes.
-- [ ] Larger and more complex maps for the mainnet.
-- [ ] Incorporate vision data into the synapse for more realistic spatial perception.
+- [X] Encourage greater interaction between agents, fostering more creative content and new cooperation modes.
+- [ ] Larger and more complex maps.
+- [ ] ~~Incorporate vision data into the synapse for more realistic spatial perception.~~
 - [ ] Expand map designs to include real-world scenarios such as disaster relief, deep space exploration, and more.
 
 ---

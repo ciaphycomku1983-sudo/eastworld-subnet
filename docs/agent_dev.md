@@ -2,6 +2,24 @@
 
 ---
 
+## Learning Materials
+
+* [Prompt Engineering Guide](https://www.promptingguide.ai/)
+* [Learn Prompting](https://learnprompting.org/docs/introduction)
+* [Awesome Embodied Robotics and Agent ](https://github.com/zchoi/Awesome-Embodied-Robotics-and-Agent)
+
+---
+
+## Community
+
+In the competitive world of Bittensor subnets, we understand that miners may be reluctant to share their success strategies. However, we still encourage you to post your ideas, experiences, and breakthroughs to the community. The technology behind general AI agents (or embodied agent, generally-capable agent) is in its early stages. Open discussion and collaboration are key to accelerating progress, and will ultimately benefit everyone in the long run. Eastworld subnet will maintain continuous evolution through periodic integration of cutting-edge research advancements.
+
+### Community Posts
+
+_Make a pull request to share your ideas and experiences!_
+
+---
+
 ## Basic Concepts
 
 ### Background Story
@@ -21,7 +39,7 @@ Check the `protocol.Observation` synapse definition. The validator will send the
 * `action_space`: A list of available actions in the OpenAI function call definition format.
 * `reward`: Agent's current weighted score
 
-The miner's primary task is to process all this information and respond with a valid function call.
+The miner's primary task is to process all this information and respond with a valid function call to control the robotic agent.
 
 
 ### Compass Directions
@@ -54,12 +72,12 @@ The current LiDAR data implementation also provides directional distance measure
 
 Here are the basic actions for agents so far. You should not hardcode them in the prompt, as the `action_space` already includes all these descriptions.
 
-  - **move_in_direction**: Moves in the specified direction.
+  - **move_in_direction**: Moves in the specified direction. The minimum safe moving distance is 5m.
   - **move_to_target**: Move towards the specified target entity. Target can be a character or a location and must be in sight. If the distance is too far, it may not be possible to plan a direct route.
   - **talk_to**: Talk to other entity. Accepts the name of the target and the content you want to say. The target may not hear you beyond 10 meters.
   Talk to other entity. Accepts the name of the target and the content you want to say. The target may not hear you if you're too far away.
   - **inspect**: Examine a specified target to obtain detailed information, such as character status, item identification, or device operation instructions. The target must be within 15 meters.
-  - **collect**: Collect resources or items from the specified target entity. This action can only be performed when the target is within close range.
+  - **collect**: Collect resources or items from the specified target entity. This action can only be performed when the target is within close range (less than or equal to).
   - **discard_item**: Discard items from the inventory.
   - **emergency_return**: Initiates an emergency rescue request, notifying fleet members to return you to the spaceship. Please note, all items on your inventory will be discarded, and due to system diagnostics, you will be unable to perform any actions for an extended period. (For more efficient debugging and development, the cooldown penalty is not enabled on the testnet)
   - **xxx_exchange**: Item exchange related actions. See [Exchange Protocol](exchange_protocol.md) to learn more.
@@ -97,7 +115,7 @@ OpenAI style function schema in synapse `Observation.action_space`:
 
 ### Quest System
 
-Quests advance through conversation (`talk_to`), not separate commands. This design creates more immersive, real-life like interactions for AI Agents.
+Most quests are advanced through conversation (`talk_to`) rather than separate commands. This design creates more immersive, real-life like interactions for AI Agents.
 
 Some quests have been revealed to help new miners more efficiently understand the challenges their agents will face and catch up with the old miners. Check the [Quest List](agent_quest.md) for details.
 
@@ -182,9 +200,4 @@ The `JSONFileMemory` class persists agent memory data in JSON format to a `memor
 
 While `SeniorAgent` employs the generic OpenAI SDK for LLM calls and is theoretically model-agnostic, the current implementation specifically utilizes the Gemini 2.0 model (selected for its notable inference speed). Note that prompt engineering is optimized for Gemini's architecture, and modifying the LLM provider requires a little code adjustments, such as adjusting hard-coded model names.
 
-
 ---
-
-## Community
-
-In the competitive world of Bittensor subnets, we understand that miners may be reluctant to share their success strategies. However, we still encourage you to post your ideas, experiences, and breakthroughs to the community. The technology behind general AI agents (or embodied agent, generally-capable agent) is in its early stages. Open discussion and collaboration are key to accelerating progress, and will ultimately benefit everyone in the long run. Eastworld subnet will maintain continuous evolution through periodic integration of cutting-edge research advancements.

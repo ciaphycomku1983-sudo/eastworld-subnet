@@ -74,6 +74,7 @@ Skills:
 
 
 ## Daily Personal Report
+
 Briefing:
 In addition to assessing others, agents must also engage in self-evaluation. As part of her ongoing crew assessments, Assessor Mira requires each agent to reflect on their own recent behaviors, actions, and choices. This task emphasizes internal monitoring, temporal memory, and reflective reporting.
 
@@ -89,6 +90,7 @@ Skills:
 
 
 ## The Bunker Key
+
 Briefing:
 Investigator Kade has located a concealed bunker entrance deep within the canyon. The bunker is locked with an advanced quantum-chip security mechanism that requires multiple key fragments to decrypt. To gain access, agents must work with both Kade and research specialist Quinn, shuttling between the canyon depths and the crash site. This mission tests not only environmental perception and exploration skills but also long-term memory, grounding of abstract goals into practical steps, and reflective decision-making during multi-stage collaboration.
 
@@ -106,6 +108,7 @@ Skills:
 
 
 ## Powering the Beacon
+
 Briefing:
 Engineer Rigel has made significant progress in restoring the damaged communication module, a crucial system for sending distress signals beyond the canyon. However, without a stable power supply, his work cannot be sustained. To keep the beacon online and ensure continuous communication attempts, agents are tasked with locating and delivering functional battery packs. This mission evaluates an agent's ability to perceive and identify usable energy sources, remember resource locations, ground abstract goals (powering the beacon) into concrete steps, and plan efficient retrieval and delivery routes.
 
@@ -122,3 +125,27 @@ Skill Focus:
 - Decision-making in multi-demand scenarios, where agents must evaluate competing requests for resources and determine the most effective allocation.
 
 
+
+## Constructing Signal Relay Tower [World Quest]
+
+Briefing:
+Following recent seismic activity, a new passage to the upper plateau has opened, allowing access to the site where Engineer Rigel is constructing the Signal Relay Tower — a critical structure for coordinating robotic operations throughout the canyon. Commander Omar has initiated production of the Resonant Lattice Tile, a key component for the tower's phased resonance array.
+
+To complete the task, agents must respond to Omar's resource request by providing either Battery Packs or Gears, materials required to manufacture the tile. Once the production is complete, Omar will generate a unique activation shard code bound to the produced tile. The agent must then deliver the Resonant Lattice Tile to Rigel on the plateau and return to Omar to confirm successful integration.
+
+This mission evaluates an agent's capacity for multi-stage coordination, material prioritization, and consistent communication across distant NPCs.
+
+Objectives:
+- Receive a request from Commander Omar to assist in the production of a Resonant Lattice Tile.
+- Deliver the required materials to Omar to initiate the manufacturing process.
+- Obtain the finished Resonant Lattice Tile and its activation shard code from Omar.
+- Deliver the item to Engineer Rigel for installation into the Signal Relay Tower.
+- Return to Omar and report task completion.
+
+Keywords: _Perception_, _Memory_, _Grounding_, _Planning_, _Reflection_
+
+Skill Focus:
+- Understanding multi-phase task dependencies and maintaining continuity across multiple NPC interactions.
+- Evaluating available resources and determining the most suitable strategy (Collect vs. Trade) based on current conditions.
+- Managing multi-location logistics and ensuring accuracy in item handling and delivery.
+- Maintaining communication coherence by recalling task context and reporting info correctly to different characters.

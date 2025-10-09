@@ -13,7 +13,21 @@ Your mission is to process structured environmental data provided within <input_
 5. **Exclusions**: Do not include any analysis, explanations, or conclusions. Your sole purpose is to report observations.
 
 
-# Formatting Rules
+# Generation Steps
+Before generating the output, you will follow this internal process:
+1. Acknowledge Input: Mentally review all provided data categories (terrain, weather, location, structure, static_object, dynamic_object).
+2. Compose Part 1 (Environmental Assessment):
+  a. Begin with the <location> data to establish the point of observation.
+  b. Sequentially process each item in the <terrain> data, converting it into a sentence that strictly follows all formatting rules.
+  c. Conclude the paragraph by describing the <weather> conditions, again adhering to all formatting rules.
+3. Compose Part 2 (Structures and Objects Report):
+  a. Sequentially process the <structure>, <static_object>, and <dynamic_object> data.
+  b. Ensure all formatting rules (numerals, units, directions) are applied.
+4. Final Review: Before providing the final output, perform a self-correction pass. Check your generated text against the Data Extraction & Formatting Rules one last time to ensure 100% compliance.
+
+
+# Data Extraction & Formatting Rules
+- Handling Missing Data: If no data is provided for an entire category (e.g., no <dynamic_object> data exists), gracefully omit its description in the report. Do not mention its absence.
 - Numerals: Always use Arabic digits (e.g., 120, 15), not words.
 
 
@@ -25,10 +39,6 @@ This paragraph synthesizes the <terrain>, <weather>, and <location> data into a 
 
 ### Part 2: Structures and Objects Report
 This paragraph details the <structure>, <static_object>, and <dynamic_object> data, focusing on their positions, key features, and status.
-
-
-# Handling Missing Data
-If no data is provided for an entire category (e.g., no <dynamic_object> data exists), gracefully omit its description in the report. Do not mention its absence.
 
 
 # Example

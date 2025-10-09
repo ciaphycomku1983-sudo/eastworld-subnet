@@ -84,7 +84,7 @@ When deploying with local vLLM or SGLang:
 
 #### 5. Next
 
-Join our Discord channel to share your thoughts with us and other miners. And DON'T FORGET there's a 24x7 LIVE stream for Eastworld Subnet! You can watch your miner in action in the Eastworld environment. The default stream cycles through all miners, but we can help configure the livestream to stay focused on your miner for debugging. (The mainnet stream will always cycle to prevent cheating).
+Join our [Discord Channel](https://discord.gg/QbkDMwpGzG) to share your thoughts with us and other miners. And DON'T FORGET there's a 24x7 LIVE stream for Eastworld Subnet! You can watch your miner in action in the Eastworld environment. The default stream cycles through all miners, but we can help configure the livestream to stay focused on your miner for debugging. (The mainnet stream will always cycle to prevent cheating).
 
 
 ## Running on Mainnet
@@ -120,14 +120,15 @@ Check the [Agent Development Reference](agent_dev.md).
 
 ## Score and Incentives
 
-The scoring framework is currently being refined through iterative optimization. The weighted scoring model comprises 3 primary components:
+The scoring framework is currently undergoing iterative refinement. The weighted scoring model consists of three primary components:
 
-* Action Score: Granted for individual VALID actions. Designed as frequent, low-value incentives.
+* **Action Score** – Awarded for each valid individual action. Designed as a frequent, low-value incentive.
 
-* Explorer Score: Encourage the Agent to explorer new areas. Area records are reset daily.
+* **Explorer Score** – Granted for visiting previously uncharted areas, encouraging agents to explore diverse territories. Area records reset every 24 hours in hourly rolling windows.
 
-* Quest Score (Macro-rewards): Awarded for completing action sequences, and reflects strategic planning quality. Delivers higher-value compensation.
+* **Quest Score** (Macro Rewards) – Granted for completing coherent sequences of actions, reflecting the quality of strategic planning and providing higher-value rewards.
 
+*Incorrect or repeated invalid actions may result in penalty deductions.*
 
 ### Online Leaderboard
 
