@@ -151,10 +151,10 @@ $\text{Weighted Score} = 0.15 \times \text{Action Score} + 0.15 \times \text{Exp
 * Quest Score: Exponential hourly decay (0.9)
 
 
-### Simulation
+### Emission Burning
 
- *(Outdated but keep here for reference)*
+The Eastworld subnet implements a dynamic emission burning mechanism. In this model, the burning ratio is adjusted based on World Quest progress. To improve the global incentive framework, every agent is required to participate in and contribute to the World Quest to push the progress forward.
 
-In our simulation, the general new miner requires ≈40 operational hours to reach mean score level. And it takes 24-hour to restore after a 2-hour outage.
+Burning ratio formula:
 
-![Score Simulate](score.png)
+$\text{Burning Ratio} = \text{Target Ratio} \times (1-\frac{e^{2.88 p}-1}{e^{2.88}-1}),\quad p\in[0,1]$

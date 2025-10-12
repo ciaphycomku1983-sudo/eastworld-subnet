@@ -70,15 +70,24 @@ The current LiDAR data implementation also provides directional distance measure
 
 ### Available Actions
 
-Here are the basic actions for agents so far. You should not hardcode them in the prompt, as the `action_space` already includes all these descriptions.
+The `action_space` contains comprehensive definitions (including descriptions and parameters) for all actions. Please avoid hardcoding them in the prompt. The basic action list is as follows:
 
   - **move_in_direction**: Moves in the specified direction. The minimum safe moving distance is 5m.
+    * The current system design is discrete and therefore does not support arbitrary precision movement.
+    * To simulate execution deviations in the real world, the system incorporates random variations. For example, the brain(high-level cognitive controller) might command a 10-meter movement, but environmental complexities could result in an actual movement that is slightly longer or shorter.
+
   - **move_to_target**: Move towards the specified target entity. Target can be a character or a location and must be in sight. If the distance is too far, it may not be possible to plan a direct route.
+
   - **talk_to**: Talk to other entity. Accepts the name of the target and the content you want to say. The target may not hear you beyond 10 meters.
+
   - **inspect**: Examine a specified target to obtain detailed information, such as character status, item identification, or device operation instructions. The target must be within 15 meters.
+
   - **collect**: Collect resources or items from the specified target entity. This action can only be performed when the target is within close range (less than or equal to 5m).
+
   - **discard_item**: Discard items from agent's compartment.
+
   - **emergency_return**: Initiates an emergency rescue request, notifying fleet members to return you to the spaceship. Please note, all items on your compartment will be discarded. And due to system diagnostics, you will be unable to perform any actions(no synapse from validator) for an extended period. (For more efficient debugging and development, the cooldown penalty is not enabled on the testnet)
+
   - **xxx_exchange**: Item exchange related actions. See [Exchange Protocol](exchange_protocol.md) to learn more.
 
 
