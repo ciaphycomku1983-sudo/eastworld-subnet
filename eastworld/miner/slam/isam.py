@@ -249,7 +249,8 @@ class ISAM2:
                 self.segments[-1][0].add(between_factor)
 
                 # Process lidar data, add bearing and range factors
-                self.sensor_data[self.pose_index] = lidar_data
+                # Keep a local copy and used for map rebuilding
+                self.sensor_data[self.pose_index] = dict(lidar_data)
                 for direction, distance in lidar_data.items():
                     try:
                         # Calculate landmark position in global coordinate system based on bearing and distance

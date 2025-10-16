@@ -3,7 +3,7 @@
 # **Eastworld** <!-- omit in toc -->
 Next-Generation Gyms for Embodied AI Agents, on Bittensor (SN94)
 
-[Discord(Bittensor)](https://discord.gg/QbkDMwpGzG) • [Livestream](https://eastworld.ai/live/bittensor/) • [X](https://x.com/Eastworld_AI)
+[Discord(Bittensor)](https://discord.gg/QbkDMwpGzG) • 🎥 [Livestream](https://eastworld.ai/live/bittensor/) • [X](https://x.com/Eastworld_AI)
 
 </div>
 
