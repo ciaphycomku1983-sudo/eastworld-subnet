@@ -173,7 +173,13 @@ def add_miner_args(cls, parser):
         "--eastworld.llm_model",
         type=str,
         help="The model to use for the LLM calls.",
-        default="gpt-4o-mini",
+        default="gemini-2.0-flash-lite",
+    )
+    parser.add_argument(
+        "--eastworld.manual_control",
+        action="store_true",
+        help="Enable interactive manual control overrides for the miner.",
+        default=False,
     )
 
 
