@@ -253,6 +253,21 @@ class SeniorAgent(BaseMinerNeuron):
             "arguments": manual_action.arguments,
         }
 
+    def _shutdown_manual_controller(self):
+        if self.manual_controller:
+            self.manual_controller.stop()
+            self.manual_controller = None
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self._shutdown_manual_controller()
+        return super().__exit__(exc_type, exc_value, traceback)
+
+    def __del__(self):
+        try:
+            self._shutdown_manual_controller()
+        except Exception:
+            pass
+
     def _build_graph(self) -> CompiledStateGraph:
         graph_builder = StateGraph(AgentState)
 
