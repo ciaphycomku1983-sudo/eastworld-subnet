@@ -25,6 +25,8 @@ from typing import Annotated, TypedDict
 import bittensor as bt
 import openai
 from langchain_core.prompts import PromptTemplate
+
+from eastworld.miner.manual_control import ManualAction, ManualController
 from langchain_core.runnables import RunnableConfig
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
@@ -129,6 +131,8 @@ class SeniorAgent(BaseMinerNeuron):
     slam: ISAM2
     llm: openai.AsyncOpenAI
     memory: JSONFileMemory
+    manual_controller: ManualController | None
+    manual_control_enabled: bool
 
     local_action_space: list[dict] = []
 
@@ -146,7 +150,7 @@ class SeniorAgent(BaseMinerNeuron):
         else:
             self.slam = ISAM2(load_data=True, data_dir=slam_data)
 
-        self.llm = openai.AsyncOpenAI(timeout=10)
+        self.llm = self._init_llm_client()
         self.model_small = "gemini-2.0-flash-lite"
         self.model_medium = "gemini-2.0-flash"
         self.model_large = "gemini-2.0-flash"
@@ -176,9 +180,93 @@ class SeniorAgent(BaseMinerNeuron):
         with open("eastworld/miner/local_actions.json", "r") as f:
             self.local_action_space = json.load(f)
 
+        self.manual_controller = None
+        self.manual_control_enabled = self._manual_control_requested()
+        if self.manual_control_enabled:
+            self.manual_controller = ManualController(self.directions)
+            self.manual_controller.start()
+            bt.logging.info(
+                "SeniorAgent manual control is active. Type 'exit' to resume autonomous mode."
+            )
+
         # Variables for `maze_run`
         self.maze_run_explore_direction = "north"
         self.maze_run_counter = 0
+
+    def _init_llm_client(self) -> openai.AsyncOpenAI:
+        gemini_key = (
+            os.getenv("GEMINI_API_KEY")
+            or os.getenv("GOOGLE_API_KEY")
+            or os.getenv("GEMINI_KEY")
+        )
+        gemini_base = os.getenv(
+            "GEMINI_API_BASE_URL",
+            "https://generativelanguage.googleapis.com/v1beta/openai",
+        ).rstrip("/")
+
+        if gemini_key:
+            bt.logging.info(
+                f"Initializing Gemini API client (base: {gemini_base})."
+            )
+            return openai.AsyncOpenAI(
+                api_key=gemini_key,
+                base_url=gemini_base,
+                default_headers={"x-goog-api-key": gemini_key},
+                timeout=10,
+            )
+
+        fallback_key = os.getenv("OPENAI_API_KEY")
+        if fallback_key:
+            bt.logging.warning(
+                "GEMINI_API_KEY/GOOGLE_API_KEY not set; falling back to OpenAI configuration."
+            )
+            return openai.AsyncOpenAI(api_key=fallback_key, timeout=10)
+
+        bt.logging.warning(
+            "No LLM API key configured. Set GEMINI_API_KEY (preferred) or OPENAI_API_KEY to enable reasoning."
+        )
+        return openai.AsyncOpenAI(timeout=10)
+
+    def _manual_control_requested(self) -> bool:
+        env_value = os.getenv("EASTWORLD_MANUAL_CONTROL", "").strip().lower()
+        env_enabled = env_value in {"1", "true", "yes", "on"}
+
+        eastworld_cfg = getattr(self.config, "eastworld", None)
+        config_enabled = bool(
+            getattr(eastworld_cfg, "manual_control", False)
+        ) if eastworld_cfg is not None else False
+
+        return env_enabled or config_enabled
+
+    def _get_manual_override(self, synapse: Observation) -> dict | None:
+        if not self.manual_controller:
+            return None
+
+        manual_action: ManualAction | None = self.manual_controller.poll_action(
+            synapse, self.local_action_space
+        )
+        if manual_action is None:
+            return None
+
+        return {
+            "name": manual_action.name,
+            "arguments": manual_action.arguments,
+        }
+
+    def _shutdown_manual_controller(self):
+        if self.manual_controller:
+            self.manual_controller.stop()
+            self.manual_controller = None
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self._shutdown_manual_controller()
+        return super().__exit__(exc_type, exc_value, traceback)
+
+    def __del__(self):
+        try:
+            self._shutdown_manual_controller()
+        except Exception:
+            pass
 
     def _build_graph(self) -> CompiledStateGraph:
         graph_builder = StateGraph(AgentState)
@@ -220,6 +308,21 @@ class SeniorAgent(BaseMinerNeuron):
 
     async def forward(self, synapse: Observation) -> Observation:
         self.step += 1
+
+        manual_action = self._get_manual_override(synapse)
+        if manual_action is not None:
+            bt.logging.info(f">> Manual Override Action: {manual_action}")
+            arguments = manual_action.get("arguments", {})
+            if isinstance(arguments, dict) and arguments:
+                summary = ", ".join(f"{k}: {v}" for k, v in arguments.items())
+                self.memory.push_log(f"{manual_action['name']}, {summary}")
+            else:
+                self.memory.push_log(manual_action["name"])
+            self.memory.save()
+
+            synapse.action = [manual_action]
+            return synapse
+
         config = RunnableConfig(
             configurable={"thread_id": f"step_{self.uid}_{self.step}"}
         )

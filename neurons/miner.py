@@ -24,9 +24,8 @@ import bittensor as bt
 
 from eastworld.base.miner import BaseMinerNeuron
 from eastworld.protocol import Observation
-from eastworld.miner.junior import JuniorAgent
+from eastworld.miner.senior import SeniorAgent
 
-# from eastworld.miner.senior import SeniorAgent
 # from eastworld.miner.reasoning import ReasoningAgent
 
 
@@ -109,9 +108,8 @@ if __name__ == "__main__":
     load_dotenv()
 
     # Or read the docs and try the other miners:
-    # - SeniorAgent(slam_data=None)
     # - ReasoningAgent(reflection_model="o4-mini", action_model="gpt-4o-mini")
-    with JuniorAgent() as miner:
+    with SeniorAgent() as miner:
         while True:
             bt.logging.info(f"Miner is running... {time.time()}")
             time.sleep(30)
